@@ -17,16 +17,6 @@ jobs:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
           fetch-depth: 0
-      - name: Get specific changed files
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v26.1
-        with:
-          files: |
-            index.html
-      - name: Run step when a file changes
-        if: contains(steps.changed-files-specific.outputs.modified_files, 'index.html')
-        run: |
-          echo "Your index.html file has been modified."
       - name: Get changed files
         id: changes
         # Set outputs using the command.
