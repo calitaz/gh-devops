@@ -37,7 +37,7 @@ jobs:
           path: src/this.json
           write-mode: overwrite
           contents: |
-            console.log('some contents')
+            ${{steps.set_var.outputs.file}}
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
