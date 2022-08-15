@@ -1,18 +1,26 @@
 on:
-  pull_request:
-    types:
-      - opened
+  push:
     branches:
       - main
     paths:
-      - "src/package/**"
+      - "src/package/index.html"
 
 jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: calitaz/discordpy-osrs
+          token: ${{ secrets.GH_PAT }}
           fetch-depth: 0
+      - name: Pull-Request
+        uses: repo-sync/pull-requests@v2
+        with:
+          destination_branch: "main"
+          pr_title: "[AUTO] - Update `index.html`"
+          pr_body: ":crown: *Autocomplete PR*"
+          pr_label: "auto-pr"
+          pr_draft: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
