@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - mame: Get file content
+      - name: Get file content
         id: set_var
         run: |
           content=`cat ./src/this.json`
