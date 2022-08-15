@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: calitaz/tibia_discord_bot
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
       - name: Update AUTHORS
         run: |
@@ -23,8 +23,6 @@ jobs:
         with:
           title: "[AUTO] - Update `index.html`"
           commit-message: Update index
-          committer: GitHub <noreply@github.com>
-          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           body: |
             Update report
             - `index.html` was updated, please update your index.html
@@ -35,5 +33,5 @@ jobs:
           labels: |
             automated pr
           branch: auto-pr/update-index.html
-          token: ${{ secrets.GH_PAT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
