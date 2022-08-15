@@ -1,5 +1,7 @@
 on:
   pull_request:
+    types:
+      - opened
     branches:
       - main
     paths:
@@ -21,3 +23,4 @@ jobs:
           pr_title: "Pulling ${{ github.ref }} into main" # Title of pull request
           pr_template: ".github/PULL_REQUEST_TEMPLATE/second_template.md" # Path to pull request template, requires pr_title to be set, excludes pr_body
           pr_allow_empty: true # Creates pull request even if there are no changes
+          github_token: ${{ secrets.GITHUB_TOKEN }}
