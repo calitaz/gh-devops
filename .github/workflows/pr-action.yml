@@ -23,14 +23,14 @@ jobs:
           echo "::set-output name=file::$content"
       - name: Print File
         run: |
-          echo "${{fromJson(steps.set_var.outputs.file).version}}"
+          echo "${{fromJson(steps.set_var.outputs.file).title}}"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
         with:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
       - name: Make changes to pull request
-        run: ${{steps.set_var.outputs.file}} > src/this.json
+        run: ${{toJson(steps.set_var.outputs.file)}} > src/this.json
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
