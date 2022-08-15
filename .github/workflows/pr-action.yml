@@ -5,6 +5,8 @@ on:
     paths:
       - "src/package/index.html"
 
+outputs:
+  file: ${{ steps.changes.outputs.file }}
 jobs:
   pull-request:
     runs-on: ubuntu-latest
@@ -14,6 +16,25 @@ jobs:
         with:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
+          fetch-depth: 0
+      - name: Get specific changed files
+        id: changed-files-specific
+        uses: tj-actions/changed-files@v26.1
+        with:
+          files: |
+            index.html
+      - name: Run step when a file changes
+        if: contains(steps.changed-files-specific.outputs.modified_files, 'index.html')
+        run: |
+          echo "Your index.html file has been modified."
+      - name: Get changed files
+        id: changes
+        # Set outputs using the command.
+        run: |
+          echo "::set-output name=file::$(git diff-tree --no-commit-id --name-only ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | grep index.html$ | xargs)"
+      - name: Print
+        run: |
+          echo ${{ steps.changes.outputs.file }}
       - name: Make changes to pull request
         run: date +%s > report.txt
       - name: Pull-Request
