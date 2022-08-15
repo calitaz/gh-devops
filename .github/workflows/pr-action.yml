@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - bleh
     paths:
       - "src/package/index.html"
 
