@@ -19,6 +19,7 @@ jobs:
         uses: peter-evans/create-pull-request@v4
         with:
           title: "[AUTO] - Update `index.html`"
+          commit-message: Update index
           committer: GitHub <noreply@github.com>
           author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           body: |
