@@ -3,35 +3,37 @@ on:
     branches:
       - bleh
     paths:
-      - "src/package/index.html"
+      - "src/package/this.json"
 
 jobs:
   pull-request:
     runs-on: ubuntu-latest
     outputs:
-      file: ${{ steps.changes.outputs.file }}
+      file: ${{ steps.set_var.outputs.file }}
     steps:
       - name: Local Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get changed files
-        id: changes
-        # Set outputs using the command.
+      - mame: Get file content
+        id: set_var
         run: |
-          echo "::set-output name=file::$(git diff --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
-      - name: Print
-        run: |
-          echo ${{ steps.changes.outputs.file }}
+          content=`cat ./src/this.json`
+          # the following lines are only required for multi line json
+          content="${content//'%'/'%25'}"
+          content="${content//$'\n'/'%0A'}"
+          content="${content//$'\r'/'%0D'}"
+          # end of optional handling for multi line json
+          echo "::set-output name=file::$content"
+      - run: |
+          echo "${{fromJson(steps.set_var.outputs.file).title}}"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
         with:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
-        env:
-          file_test: ${{ steps.changes.outputs.file }}
       - name: Make changes to pull request
-        run: ${{ env.file_test }} > src/index.html
+        run: ${{ toJson(steps.set_var.outputs.file) }} > src/this.json
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
