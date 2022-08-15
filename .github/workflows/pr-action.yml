@@ -8,32 +8,25 @@ on:
 jobs:
   pull-request:
     runs-on: ubuntu-latest
-    outputs:
-      file: ${{ steps.set_var.outputs.file }}
     steps:
       - name: Local Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Get file content
-        id: set_var
-        run: |
-          content=`cat ./this.json`
-          # the following lines are only required for multi line json
-          content="${content//'%'/'%25'}"
-          content="${content//$'\n'/'%0A'}"
-          content="${content//$'\r'/'%0D'}"
-          # end of optional handling for multi line json
-          echo "::set-output name=file::$content"
-      - run: |
-          echo "${{fromJson(steps.set_var.outputs.file).title}}"
+      - name: Read package.json
+        id: file
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./src/this.json
+      - name: Echo this.json
+          run: echo "${{ steps.file.outputs.content }}"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
         with:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
       - name: Make changes to pull request
-        run: ${{ toJson(steps.set_var.outputs.file) }} > src/this.json
+        run: ${{ steps.file.outputs.content }} > src/this.json
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
