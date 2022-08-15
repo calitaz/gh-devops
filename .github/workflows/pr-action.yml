@@ -32,4 +32,3 @@ jobs:
             automated pr
           branch: auto-pr/update-index.html
           token: ${{ secrets.GITHUB_TOKEN }}
-          delete-branch: true
