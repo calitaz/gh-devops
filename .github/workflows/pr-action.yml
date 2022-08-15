@@ -2,8 +2,8 @@ on:
   pull_request:
     types:
       - opened
-  paths:
-    - "src/package"
+    paths:
+      - "src/package"
 
 jobs:
   checklist_job:
