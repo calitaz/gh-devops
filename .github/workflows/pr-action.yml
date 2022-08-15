@@ -8,11 +8,16 @@ on:
 jobs:
   pull-request:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      pull-requests: write
+      actions: write
+      repository-projects: write
     steps:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          repository: calitaz/tibia_discod_bot
+          repository: calitaz/tibia_discord_bot
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Make changes to pull request
         run: date +%s > report.txt
@@ -31,5 +36,5 @@ jobs:
           labels: |
             automated pr
           branch: auto-pr/update-index.html
-          token: ${{ secrets.BOT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
