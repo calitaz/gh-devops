@@ -1,4 +1,4 @@
 # Switcher
 
-- [Package](?template=first_template.md)
-- [Service](?template=second_template.md)
+- [Package](?expand=1&template=first_template.md)
+- [Service](?expand=1&template=second_template.md)
