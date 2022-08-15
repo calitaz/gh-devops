@@ -11,9 +11,6 @@ jobs:
     steps:
       - name: Local Checkout
         uses: actions/checkout@v2
-        with:
-          repository: calitaz/tibia_discord_bot
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get File Content
         id: set_var
         run: |
