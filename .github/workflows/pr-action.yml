@@ -1,18 +1,15 @@
 on:
-  push:
+  pull_request:
     branches:
       - main
     paths:
-      - "src/package"
+      - "src/package/**"
 
 jobs:
   pull-request:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: pull-request
-        uses: repo-sync/pull-request@v2
         with:
-          pr_title: "Pulling ${{ github.ref }} into main" # Title of pull request
-          pr_template: ".github/PULL_REQUEST_TEMPLATE/first_template.md" # Path to pull request template, requires pr_title to be set, excludes pr_body
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
