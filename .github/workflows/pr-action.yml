@@ -14,9 +14,8 @@ jobs:
         with:
           repository: calitaz/gh-devops-actions
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Update AUTHORS
-        run: |
-          git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > AUTHORS
+      - name: Make changes to pull request
+        run: date +%s > report.txt
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
