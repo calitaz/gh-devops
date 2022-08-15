@@ -6,14 +6,12 @@ on:
       - "src/package/index.html"
 
 jobs:
-  changedfiles:
+  pull-request:
     runs-on: ubuntu-latest
-    # Map a step output to a job output
     outputs:
-      all: ${{ steps.changes.outputs.all}}
+      file: ${{ steps.changes.outputs.file }}
     steps:
-      # Make sure we have some code to diff.
-      - name: Checkout repository
+      - name: Local Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -21,12 +19,7 @@ jobs:
         id: changes
         # Set outputs using the command.
         run: |
-          echo "::set-output name=all::$(git diff --name-only -r ${{ github.sha }} | xargs)"
-
-  pull-request:
-    runs-on: ubuntu-latest
-    needs: changedfiles
-    steps:
+          echo "::set-output name=file::$(git diff --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
         with:
@@ -34,9 +27,9 @@ jobs:
           token: ${{ secrets.BOT }}
       - name: Print
         run: |
-          echo ${{needs.changedfiles.outputs.all}}
+          echo ${{ steps.changes.outputs.file }}
       - name: Make changes to pull request
-        run: date +%s > report.txt
+        run: ${{ steps.changes.outputs.file }} > report.txt
       # - name: Pull-Request
       #   uses: peter-evans/create-pull-request@v4
       #   with:
