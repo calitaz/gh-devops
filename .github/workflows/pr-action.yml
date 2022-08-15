@@ -33,5 +33,5 @@ jobs:
           labels: |
             automated pr
           branch: auto-pr/update-index.html
-          token: ${{ secrets.BOT }}
+          token: ${{ github.BOT }}
           base: main
