@@ -30,7 +30,7 @@ jobs:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.BOT }}
       - name: Make changes to pull request
-        run: ${{toJson(steps.set_var.outputs.file)}} > src/this.json
+        run: ${{toJson(steps.set_var.outputs.file)}} > ./src/this.json
       - name: Pull-Request
         uses: peter-evans/create-pull-request@v4
         with:
