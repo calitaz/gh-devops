@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          repository: calitaz/gh-devops-actions
+          repository: calitaz/tibia_discod_bot
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Make changes to pull request
         run: date +%s > report.txt
@@ -31,5 +31,5 @@ jobs:
           labels: |
             automated pr
           branch: auto-pr/update-index.html
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT }}
           base: main
