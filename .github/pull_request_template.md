@@ -1,4 +1,4 @@
-# Nomad Mono PR Template
+# PR Templates
 
 Please, before open your PR choose the template regarding your pull request.
 
