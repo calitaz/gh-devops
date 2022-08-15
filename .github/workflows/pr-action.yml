@@ -18,7 +18,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: calitaz/tibia_discord_bot
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.BOT }}
       - name: Make changes to pull request
         run: date +%s > report.txt
       - name: Pull-Request
