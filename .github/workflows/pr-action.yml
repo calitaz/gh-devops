@@ -11,17 +11,20 @@ jobs:
     outputs:
       file: ${{ steps.changes.outputs.file }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Local Checkout
+      - uses: actions/checkout@v2
         with:
-          repository: calitaz/tibia_discord_bot
-          token: ${{ secrets.BOT }}
           fetch-depth: 0
       - name: Get changed files
         id: changes
         # Set outputs using the command.
         run: |
           echo "::set-output name=file::$(git diff --no-commit-id --name-only -r ${{ github.sha }} | xargs)"
+      - name: Remote Repo Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: calitaz/tibia_discord_bot
+          token: ${{ secrets.BOT }}
       - name: Print
         run: |
           echo ${{ steps.changes.outputs.file }}
