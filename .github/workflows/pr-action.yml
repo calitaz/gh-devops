@@ -26,6 +26,8 @@ jobs:
         with:
           title: "[AUTO] - Update `index.html`"
           commit-message: Update index
+          committer: GitHub <noreply@github.com>
+          author: ${{ github.actor }} <${{ github.actor }}@users.noreply.github.com>
           body: |
             Update report
             - `index.html` was updated, please update your index.html
