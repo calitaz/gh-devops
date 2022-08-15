@@ -19,7 +19,7 @@ jobs:
         with:
           path: ./src/this.json
       - name: Echo this.json
-          run: echo "${{ steps.file.outputs.content }}"
+        run: echo "${{ steps.file.outputs.content }}"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
         with:
