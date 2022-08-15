@@ -15,7 +15,7 @@ jobs:
           repository: calitaz/tibia_discord_bot
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Get File Content
-      - id: set_var
+        id: set_var
         run: |
           content=`cat ./src/package/this.json`
           # the following lines are only required for multi line json
@@ -24,7 +24,8 @@ jobs:
           content="${content//$'\r'/'%0D'}"
           # end of optional handling for multi line json
           echo "::set-output name=file::$content"
-      - run: |
+      - name: Print File
+        run: |
           echo "${{fromJson(steps.set_var.outputs.file).version}}"
       - name: Remote Repo Checkout
         uses: actions/checkout@v3
