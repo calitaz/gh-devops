@@ -12,9 +12,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          repository: calitaz/tibia_discord_bot
+          repository: calitaz/gh-devops-actions
           token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0
       - name: Update AUTHORS
         run: |
           git log --format='%aN <%aE>%n%cN <%cE>' | sort -u > AUTHORS
@@ -33,5 +32,5 @@ jobs:
           labels: |
             automated pr
           branch: auto-pr/update-index.html
-          token: ${{ github.BOT }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           base: main
