@@ -17,7 +17,7 @@ jobs:
         id: file
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./src/this.json
+          path: this.json
       - name: Echo this.json
         run: echo "${{ steps.file.outputs.content }}"
       - name: Remote Repo Checkout
