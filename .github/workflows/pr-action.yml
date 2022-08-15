@@ -5,11 +5,11 @@ on:
     paths:
       - "src/package/index.html"
 
-outputs:
-  file: ${{ steps.changes.outputs.file }}
 jobs:
   pull-request:
     runs-on: ubuntu-latest
+    outputs:
+      file: ${{ steps.changes.outputs.file }}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
