@@ -12,12 +12,13 @@ jobs:
       - name: Local Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          repository: calitaz/tibia_discord_bot
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Read package.json
         id: file
         uses: juliangruber/read-file-action@v1
         with:
-          path: this.json
+          path: src/this.json
       - name: Echo this.json
         run: echo "${{ steps.file.outputs.content }}"
       - name: Remote Repo Checkout
